@@ -3,103 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baldwin IV - The Royal Session</title>
+    <title>Baldwin IV - Official App Link</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Amiri:ital@1&display=swap');
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body, html { 
-            height: 100vh; background: #000; overflow: hidden; 
-            font-family: 'Cinzel', serif; color: white; 
-            display: flex; align-items: center; justify-content: center;
-        }
+        body, html { height: 100vh; background: #000; overflow: hidden; font-family: 'Cinzel', serif; color: white; display: flex; align-items: center; justify-content: center; }
 
-        /* الخلفية والضباب */
-        .mist-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #111 0%, #000 100%);
-            z-index: -2;
-        }
-        .mist-layer {
-            position: fixed; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.02) 0%, transparent 70%);
-            animation: moveMist 25s infinite alternate linear; z-index: -1;
-        }
+        /* الخلفية الملكية */
+        .mist-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #111 0%, #000 100%); z-index: -2; }
+        .mist-layer { position: fixed; width: 200%; height: 200%; background: radial-gradient(circle, rgba(212, 175, 55, 0.02) 0%, transparent 70%); animation: moveMist 25s infinite alternate linear; z-index: -1; }
         @keyframes moveMist { from { transform: translate(-10%, -10%); } to { transform: translate(10%, 10%); } }
 
-        /* الرصيد العلوي */
-        .crown-status {
-            display: none; position: fixed; top: 25px; left: 50%; transform: translateX(-50%);
-            background: rgba(0,0,0,0.95); border: 1px solid #d4af37;
-            padding: 8px 25px; border-radius: 50px;
-            align-items: center; gap: 10px; z-index: 1000;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-        }
+        /* الرصيد */
+        .crown-status { display: none; position: fixed; top: 25px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.95); border: 1px solid #d4af37; padding: 8px 25px; border-radius: 50px; align-items: center; gap: 10px; z-index: 1000; box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
 
-        /* الكارد الرئيسي */
-        .main-card {
-            background: rgba(10, 10, 10, 0.98);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            padding: 35px; width: 92%; max-width: 400px;
-            text-align: center; position: relative; z-index: 10;
-        }
+        /* الكارد */
+        .main-card { background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(20px); border: 1px solid rgba(212, 175, 55, 0.15); padding: 35px; width: 92%; max-width: 400px; text-align: center; position: relative; z-index: 10; }
+        .blood-alert { color: #800; font-size: 0.75rem; font-weight: 900; text-shadow: 0 0 10px red; margin-bottom: 25px; display: block; }
 
-        .blood-alert {
-            color: #800; font-size: 0.75rem; font-weight: 900;
-            text-shadow: 0 0 10px red; margin-bottom: 25px; display: block;
-        }
-
-        /* لغز الرياضيات */
-        .scroll-design {
-            background: rgba(15, 15, 15, 0.8); border: 1px double #d4af37;
-            padding: 25px; margin: 20px 0;
-        }
+        /* اللعبة والعداد */
+        .scroll-design { background: rgba(15, 15, 15, 0.8); border: 1px double #d4af37; padding: 25px; margin: 20px 0; }
         #equation-display { font-size: 3.5rem; color: #fff; text-shadow: 0 0 15px gold; }
-
-        .btn-group { display: flex; justify-content: center; gap: 15px; }
-        .royal-btn {
-            background: none; border: 1px solid #d4af37; color: #d4af37;
-            padding: 12px 30px; cursor: pointer; font-size: 1.3rem;
-            font-family: 'Cinzel'; transition: 0.3s;
-        }
-        .royal-btn:hover { background: #d4af37; color: #000; box-shadow: 0 0 20px #d4af37; }
-
-        /* العداد (5 ثواني) */
-        #unseal-screen {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 3000;
-            flex-direction: column; align-items: center; justify-content: center;
-        }
+        .royal-btn { background: none; border: 1px solid #d4af37; color: #d4af37; padding: 12px 30px; cursor: pointer; font-size: 1.3rem; font-family: 'Cinzel'; transition: 0.3s; }
+        #unseal-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 3000; flex-direction: column; align-items: center; justify-content: center; }
         .huge-num { font-size: 10rem; color: #d4af37; text-shadow: 0 0 40px gold; animation: pulse 1s infinite; }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
 
-        /* المهام */
-        .task-row {
-            display: flex; align-items: center; justify-content: space-between;
-            background: #080808; border: 1px solid #222; padding: 18px;
-            margin: 12px 0; text-decoration: none; color: #fff;
-            border-right: 4px solid #d4af37;
-        }
+        /* الروابط */
+        .task-row { display: flex; align-items: center; justify-content: space-between; background: #080808; border: 1px solid #222; padding: 18px; margin: 12px 0; text-decoration: none; color: #fff; border-right: 4px solid #d4af37; cursor: pointer; }
         .task-row.done { opacity: 0.3; pointer-events: none; filter: grayscale(1); }
 
-        .wisdom-btn {
-            width: 100%; padding: 20px; margin-top: 25px;
-            background: none; border: 2px solid #333; color: #444;
-            font-family: 'Cinzel'; font-weight: 900; cursor: not-allowed;
-        }
-        .wisdom-btn.active { border-color: #d4af37; color: #d4af37; cursor: pointer; box-shadow: 0 0 25px gold; }
+        /* شاشة التأكد الوهمي */
+        #verifying-msg { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 500; flex-direction: column; align-items: center; justify-content: center; }
+        .fa-spin { color: gold; font-size: 2.5rem; margin-bottom: 15px; }
 
+        .wisdom-btn { width: 100%; padding: 20px; margin-top: 25px; background: none; border: 2px solid #333; color: #444; font-family: 'Cinzel'; font-weight: 900; cursor: not-allowed; }
+        .wisdom-btn.active { border-color: #d4af37; color: #d4af37; cursor: pointer; box-shadow: 0 0 25px gold; }
         .shake-effect { animation: shakeMe 0.1s infinite; }
         @keyframes shakeMe { 0% { transform: translate(2px,2px); } 50% { transform: translate(-3px,-4px); } 100% { transform: translate(0,0); } }
-        
-        #verifying-msg {
-            display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.96); z-index: 500;
-            flex-direction: column; align-items: center; justify-content: center;
-        }
     </style>
 </head>
 <body>
@@ -121,71 +64,52 @@
         <span class="blood-alert">*DON'T LISTEN TO HIM, IGNORE HIM, DOOB🧠</span>
 
         <div id="verifying-msg">
-            <i class="fas fa-circle-notch fa-spin" style="color:gold; font-size:2rem; margin-bottom:15px;"></i>
-            <div style="color:gold; letter-spacing: 2px; font-size: 0.8rem;">VERIFYING...</div>
+            <i class="fas fa-circle-notch fa-spin"></i>
+            <div style="color:gold; letter-spacing: 2px; font-size: 0.9rem;">VERIFYING...</div>
+            <div style="color:#555; font-size: 0.6rem; margin-top: 10px;">Checking Application Status</div>
         </div>
 
         <div id="game-part">
-            <h2 style="color: #d4af37; font-size: 0.9rem;">ANCIENT CHALLENGE</h2>
-            <div class="scroll-design">
-                <div id="equation-display">--</div>
-            </div>
-            <div class="btn-group" id="opts-wrap"></div>
+            <div class="scroll-design"><div id="equation-display">--</div></div>
+            <div style="display: flex; justify-content: center; gap: 15px;" id="opts-wrap"></div>
         </div>
 
         <div id="tasks-part" style="display: none;">
-            <p style="font-size: 0.7rem; color: #d4af37; margin-bottom: 20px;">FOLLOW TO CLAIM REWARD</p>
             <div id="social-list"></div>
             <button id="final-btn" class="wisdom-btn" onclick="showWisdom()">READ ROYAL WISDOM (20)</button>
         </div>
     </div>
 
     <script>
-        /* ملاحظة برمجية:
-           1. sessionStorage: تمسح البيانات بمجرد إغلاق التبويب (Tab).
-           2. localStorage: تحفظ البيانات حتى لو أغلقت المتصفح.
-           لذلك سنستخدم sessionStorage لحالة "فتح البوابة" (Solved)،
-           بينما سنستخدم localStorage لـ "الذهب" (حتى لا يخسر تعبه إذا أغلق الصفحة صدفة).
-        */
-
-        let gold = parseInt(localStorage.getItem('king_gold')) || 0;
-        let isSolved = sessionStorage.getItem('king_solved') === 'true'; // يتم مسحه عند الإغلاق
-        let claimedTasks = JSON.parse(localStorage.getItem('king_tasks')) || [];
-        let correct;
-
+        let gold = parseInt(localStorage.getItem('k_gold')) || 0;
+        let isSolved = sessionStorage.getItem('k_solved') === 'true';
+        let claimedTasks = JSON.parse(localStorage.getItem('k_tasks')) || [];
+        
+        // روابط Deep Links لفتح التطبيقات مباشرة
         const apps = [
-            {id:'ig', name:'INSTAGRAM', url:'https://www.instagram.com/chennaf_anwar'},
-            {id:'fb', name:'FACEBOOK', url:'https://www.facebook.com/ayoub2007anwar'},
-            {id:'tk', name:'TIKTOK', url:'https://www.tiktok.com/@chennaf_ayoub'},
-            {id:'sc', name:'SNAPCHAT', url:'https://www.snapchat.com/add/chennaf_anwar'}
-        ];
-
-        const quotes = [
-            "📜 'الملك الحقيقي يحكم قلبه قبل مملكته.'",
-            "📜 'الصمت في حضرة الأحمق قوة.'",
-            "📜 'الثبات في وجه الفتن هو الذهب الحقيقي.'",
-            "📜 'من أراد القمة فليعتد على العزلة.'",
-            "📜 'كن جبلاً شامخاً لا تهزه ريح.'"
+            {id:'ig', name:'INSTAGRAM', url:'instagram://user?username=chennaf_anwar', backup:'https://www.instagram.com/chennaf_anwar'},
+            {id:'fb', name:'FACEBOOK', url:'fb://facewebmodal/f?href=https://www.facebook.com/ayoub2007anwar', backup:'https://www.facebook.com/ayoub2007anwar'},
+            {id:'tk', name:'TIKTOK', url:'snssdk1128://user/profile/chennaf_ayoub', backup:'https://www.tiktok.com/@chennaf_ayoub'},
+            {id:'sc', name:'SNAPCHAT', url:'snapchat://add/chennaf_anwar', backup:'https://www.snapchat.com/add/chennaf_anwar'}
         ];
 
         function updateUI() {
             document.getElementById('gold-val').innerText = gold;
-            const b = document.getElementById('final-btn');
-            
-            if(gold >= 20) { b.classList.add('active'); b.disabled = false; }
-            else { b.classList.remove('active'); b.disabled = true; }
-
             if(isSolved) {
                 document.getElementById('game-part').style.display = 'none';
                 document.getElementById('tasks-part').style.display = 'block';
                 document.getElementById('status-bar').style.display = 'flex';
                 drawTasks();
-            } else {
-                buildRiddle();
-            }
-
-            if(localStorage.getItem('king_pending')) {
-                verifyAction(localStorage.getItem('king_pending'));
+            } else { buildRiddle(); }
+            
+            const b = document.getElementById('final-btn');
+            if(gold >= 20) { b.classList.add('active'); b.disabled = false; }
+            
+            // التأكد الوهمي عند العودة
+            if(localStorage.getItem('k_pending')) {
+                let id = localStorage.getItem('k_pending');
+                localStorage.removeItem('k_pending');
+                showFakeVerification(id);
             }
         }
 
@@ -194,20 +118,22 @@
             list.innerHTML = '';
             apps.forEach(a => {
                 const done = claimedTasks.includes(a.id);
-                list.innerHTML += `<a href="javascript:void(0)" onclick="openLink('${a.id}', '${a.url}')" class="task-row ${done?'done':''}">
+                list.innerHTML += `<div onclick="openApp('${a.id}', '${a.url}', '${a.backup}')" class="task-row ${done?'done':''}">
                     <span>${a.name}</span>
                     <span style="color:gold; font-size:0.7rem;">${done?'CLAIMED':'+5 GOLD'}</span>
-                </a>`;
+                </div>`;
             });
         }
 
-        function openLink(id, url) {
-            localStorage.setItem('king_pending', id);
-            window.open(url, '_blank');
+        function openApp(id, appUrl, webUrl) {
+            localStorage.setItem('k_pending', id);
+            // محاولة فتح التطبيق
+            window.location.href = appUrl;
+            // إذا لم يفتح بعد ثانية، افتح المتصفح كبديل
+            setTimeout(() => { window.open(webUrl, '_blank'); }, 1000);
         }
 
-        function verifyAction(id) {
-            localStorage.removeItem('king_pending');
+        function showFakeVerification(id) {
             const vMsg = document.getElementById('verifying-msg');
             vMsg.style.display = 'flex';
             setTimeout(() => {
@@ -215,62 +141,34 @@
                 if(!claimedTasks.includes(id)) {
                     gold += 5;
                     claimedTasks.push(id);
-                    localStorage.setItem('king_gold', gold);
-                    localStorage.setItem('king_tasks', JSON.stringify(claimedTasks));
+                    localStorage.setItem('k_gold', gold);
+                    localStorage.setItem('k_tasks', JSON.stringify(claimedTasks));
                     updateUI();
                 }
-            }, 3000);
+            }, 3500); // مدة التأكد الوهمي
         }
 
         function buildRiddle() {
-            const n1 = Math.floor(Math.random()*8)+2, n2 = Math.floor(Math.random()*7)+3;
-            correct = n1 + n2;
+            let n1 = Math.floor(Math.random()*7)+3, n2 = Math.floor(Math.random()*8)+2;
+            let ans = n1 + n2;
             document.getElementById('equation-display').innerText = n1 + " + " + n2;
-            
-            const choices = [correct, correct+1, correct-2].sort(()=>Math.random()-0.5);
-            const wrap = document.getElementById('opts-wrap');
-            wrap.innerHTML = '';
-            choices.forEach(c => {
-                const btn = document.createElement('button');
-                btn.className = 'royal-btn'; btn.innerText = c;
+            const wrap = document.getElementById('opts-wrap'); wrap.innerHTML = '';
+            [ans, ans+1, ans-2].sort(()=>Math.random()-0.5).forEach(c => {
+                const btn = document.createElement('button'); btn.className = 'royal-btn'; btn.innerText = c;
                 btn.onclick = () => {
-                    if(c === correct) startCountdown();
-                    else {
-                        document.getElementById('gate-card').classList.add('shake-effect');
-                        setTimeout(() => document.getElementById('gate-card').classList.remove('shake-effect'), 200);
-                        buildRiddle();
-                    }
+                    if(c === ans) {
+                        const s = document.getElementById('unseal-screen'); s.style.display = 'flex';
+                        let t = 5; let iv = setInterval(() => {
+                            t--; document.getElementById('cd-timer').innerText = t;
+                            if(t <= 0) { clearInterval(iv); isSolved = true; sessionStorage.setItem('k_solved', 'true'); s.style.display = 'none'; updateUI(); }
+                        }, 1000);
+                    } else { document.getElementById('gate-card').classList.add('shake-effect'); setTimeout(()=>document.getElementById('gate-card').classList.remove('shake-effect'), 200); buildRiddle(); }
                 };
                 wrap.appendChild(btn);
             });
         }
 
-        function startCountdown() {
-            const screen = document.getElementById('unseal-screen');
-            screen.style.display = 'flex';
-            document.body.classList.add('shake-effect');
-            let time = 5;
-            const iv = setInterval(() => {
-                time--;
-                document.getElementById('cd-timer').innerText = time;
-                if(time <= 0) {
-                    clearInterval(iv);
-                    isSolved = true;
-                    sessionStorage.setItem('king_solved', 'true'); // تخزين مؤقت فقط للجلسة الحالية
-                    screen.style.display = 'none';
-                    document.body.classList.remove('shake-effect');
-                    updateUI();
-                }
-            }, 1000);
-        }
-
-        function showWisdom() {
-            if(gold >= 20) {
-                const msg = quotes[Math.floor(Math.random()*quotes.length)];
-                alert(msg);
-            }
-        }
-
+        function showWisdom() { if(gold >= 20) alert("📜 'الملك الحقيقي يحكم نفسه قبل مملكته'."); }
         window.onload = updateUI;
     </script>
 </body>
